@@ -6,4 +6,8 @@
   Copyright © 2019 Stewart Hart. All rights reserved.
 */
 
-"Welcome" = "Welcome";
+"ERROR_TITLE" = "Error";
+"BAD_DATA_FETCH_MESSAGE" = "The data feed for the list cannot be found. Please check your internet connection";
+"OKAY" = "Okay";
+
+

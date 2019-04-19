@@ -103,11 +103,11 @@
  *
  */
 -(void)displayDataFetchError {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                   message:@"The data feed for the list cannot be found. Please check your internet connection."
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ERROR_TITLE", comment:"")
+                                                                   message:NSLocalizedString(@"BAD_DATA_FETCH_MESSAGE", comment:"")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OKAY", comment:"") style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {}];
     
     [alert addAction:defaultAction];
