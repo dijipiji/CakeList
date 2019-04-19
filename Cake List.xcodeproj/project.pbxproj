@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A549CC102269D68200D56282 /* CakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = A549CC0F2269D68200D56282 /* CakeData.m */; };
 		A549CC112269D68200D56282 /* CakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = A549CC0F2269D68200D56282 /* CakeData.m */; };
+		A549CC142269E75500D56282 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A549CC122269E75500D56282 /* Localizable.strings */; };
+		A549CC152269E75500D56282 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A549CC122269E75500D56282 /* Localizable.strings */; };
 		DBF17A171B0B648F004E6311 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF17A161B0B648F004E6311 /* main.m */; };
 		DBF17A1A1B0B648F004E6311 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF17A191B0B648F004E6311 /* AppDelegate.m */; };
 		DBF17A1D1B0B648F004E6311 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF17A1C1B0B648F004E6311 /* MasterViewController.m */; };
@@ -32,6 +34,7 @@
 /* Begin PBXFileReference section */
 		A549CC0E2269D68200D56282 /* CakeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CakeData.h; sourceTree = "<group>"; };
 		A549CC0F2269D68200D56282 /* CakeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CakeData.m; sourceTree = "<group>"; };
+		A549CC132269E75500D56282 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Cake List/Base.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DBF17A111B0B648F004E6311 /* Cake List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cake List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF17A151B0B648F004E6311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF17A161B0B648F004E6311 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		DBF17A081B0B648F004E6311 = {
 			isa = PBXGroup;
 			children = (
+				A549CC122269E75500D56282 /* Localizable.strings */,
 				DBF17A131B0B648F004E6311 /* Cake List */,
 				DBF17A301B0B648F004E6311 /* Cake ListTests */,
 				DBF17A121B0B648F004E6311 /* Products */,
@@ -227,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF17A231B0B648F004E6311 /* Main.storyboard in Resources */,
+				A549CC142269E75500D56282 /* Localizable.strings in Resources */,
 				DBF17A281B0B648F004E6311 /* LaunchScreen.xib in Resources */,
 				DBF17A251B0B648F004E6311 /* Images.xcassets in Resources */,
 			);
@@ -236,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A549CC152269E75500D56282 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +280,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A549CC122269E75500D56282 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A549CC132269E75500D56282 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		DBF17A211B0B648F004E6311 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
