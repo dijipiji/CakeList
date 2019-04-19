@@ -8,9 +8,10 @@
 
 #import "MasterViewController.h"
 #import "CakeCell.h"
+#import "CakeData.h"
 
 @interface MasterViewController ()
-@property (strong, nonatomic) NSArray *objects;
+@property (strong, nonatomic) NSArray *listObjects;
 @end
 
 @implementation MasterViewController
@@ -20,7 +21,33 @@
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getData];
+    BOOL success = [self startDataFetch];
+    
+    if (success) {
+        [self.tableView reloadData];
+    }
+}
+
+/**
+ *
+ */
+-(BOOL)startDataFetch {
+    NSData *data = [CakeData getData];
+    
+    if (data == nil) {
+        [self displayDataFetchError];
+    } else {
+        id result = [CakeData parseData:data];
+        
+        if ([result isKindOfClass:[NSError class]]) {
+            [self displayDataFetchError];
+        } else if ([result isKindOfClass:[NSArray class]]) {
+            self.listObjects = result;
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 #pragma mark - Table View
@@ -31,11 +58,12 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 /**
  *
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return self.listObjects.count;
 }
 
 /**
@@ -46,7 +74,7 @@
     
     NSAssert(cell != nil, @"Cell is nil");
     
-    NSDictionary *object = self.objects[indexPath.row];
+    NSDictionary *object = self.listObjects[indexPath.row];
     cell.titleLabel.text = object[@"title"];
     cell.descriptionLabel.text = object[@"desc"];
  
@@ -69,34 +97,6 @@
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-/**
- *
- */
-- (void)getData {
-    
-    NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"];
-    
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    
-    if (data == nil) {
-        [self displayDataFetchError];
-        return;
-    }
-    
-    NSError *jsonError;
-    id responseData = [NSJSONSerialization
-                       JSONObjectWithData:data
-                       options:kNilOptions
-                       error:&jsonError];
-    
-    if (!jsonError) {
-        self.objects = responseData;
-        [self.tableView reloadData];
-    } else {
-        [self displayDataFetchError];
-    }
 }
 
 /**
