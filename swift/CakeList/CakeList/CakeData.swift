@@ -21,5 +21,26 @@ class CakeData: NSObject {
         
         return nil
     }
+    
+    
+    /**
+     *
+     */
+    public class func parseData(_ data:Data) -> Any? {
+        
+        do {
+            let json:Any? = try JSONSerialization.jsonObject(with: data, options:[]) as Any?
+            
+            if json != nil {
+                return json
+            }
+        }
+        catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return nil
+        
+    }
 
 }

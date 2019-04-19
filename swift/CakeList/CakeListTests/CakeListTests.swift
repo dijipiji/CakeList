@@ -26,7 +26,15 @@ class CakeListTests: XCTestCase {
     
     func testData() {
         
-        XCTAssert(CakeData.getData() != nil, "CakeData.getData() is nil")
+        let cakeData:Data? = CakeData.getData()
+        
+        XCTAssert(cakeData != nil, "CakeData.getData() returns nil")
+        
+        let json:Any? = CakeData.parseData(cakeData!)
+        
+        XCTAssert(json != nil, "CakeData.parseData() returns nil")
+        
+        print("json=\(String(describing: json))")
         
     }
 
