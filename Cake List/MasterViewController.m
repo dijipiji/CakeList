@@ -42,6 +42,13 @@
     NSURL *aURL = [NSURL URLWithString:object[@"image"]];
     NSData *data = [NSData dataWithContentsOfURL:aURL];
     UIImage *image = [UIImage imageWithData:data];
+    
+    if (image == nil) {
+        cell.cakeImageView.backgroundColor = UIColor.whiteColor;
+        image = [UIImage imageNamed:@"icon-cake"];
+    }
+    
+    
     [cell.cakeImageView setImage:image];
     
     return cell;
