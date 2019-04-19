@@ -80,18 +80,38 @@
     
     NSData *data = [NSData dataWithContentsOfURL:url];
     
+    if (data == nil) {
+        [self displayDataFetchError];
+        return;
+    }
+    
     NSError *jsonError;
     id responseData = [NSJSONSerialization
                        JSONObjectWithData:data
                        options:kNilOptions
                        error:&jsonError];
+    
     if (!jsonError) {
         self.objects = responseData;
         [self.tableView reloadData];
     } else {
-        
+        [self displayDataFetchError];
     }
+}
+
+/**
+ *
+ */
+-(void)displayDataFetchError {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"The data feed for the list cannot be found. Please check your internet connection."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {}];
+    
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
