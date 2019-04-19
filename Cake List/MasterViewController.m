@@ -15,20 +15,32 @@
 
 @implementation MasterViewController
 
+/**
+ *
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getData];
 }
 
 #pragma mark - Table View
+
+/**
+ *
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
+/**
+ *
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.objects.count;
 }
 
+/**
+ *
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CakeCell *cell = (CakeCell*)[tableView dequeueReusableCellWithIdentifier:@"CakeCell"];
     
@@ -38,7 +50,6 @@
     cell.titleLabel.text = object[@"title"];
     cell.descriptionLabel.text = object[@"desc"];
  
-    
     NSURL *aURL = [NSURL URLWithString:object[@"image"]];
     NSData *data = [NSData dataWithContentsOfURL:aURL];
     UIImage *image = [UIImage imageWithData:data];
@@ -48,17 +59,22 @@
         image = [UIImage imageNamed:@"icon-cake"];
     }
     
-    
     [cell.cakeImageView setImage:image];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+/**
+ *
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)getData{
+/**
+ *
+ */
+- (void)getData {
     
     NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"];
     
@@ -69,10 +85,11 @@
                        JSONObjectWithData:data
                        options:kNilOptions
                        error:&jsonError];
-    if (!jsonError){
+    if (!jsonError) {
         self.objects = responseData;
         [self.tableView reloadData];
     } else {
+        
     }
     
 }
