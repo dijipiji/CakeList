@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 Stewart Hart. All rights reserved.
 //
 
+#import "CakeData.h"
+
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+
 
 @interface Cake_ListTests : XCTestCase
 
@@ -30,10 +33,23 @@
     XCTAssert(YES, @"Pass");
 }
 
+
+- (void)testData {
+    NSData *data = [CakeData getData];
+    
+    XCTAssert(data != nil, @"CakeData getData is nil");
+    
+    id response = [CakeData parseData:data];
+
+    XCTAssert([response isKindOfClass:[NSArray class]], @"CakeData parseData returns error:%@",(NSError*)response);
+}
+
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
+        [self testData];
     }];
 }
 
