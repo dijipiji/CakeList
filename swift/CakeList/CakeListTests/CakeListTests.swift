@@ -23,6 +23,12 @@ class CakeListTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+    func testData() {
+        
+        XCTAssert(CakeData.getData() != nil, "CakeData.getData() is nil")
+        
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
