@@ -42,7 +42,7 @@ class MainViewController: UITableViewController {
                 
                 LIST_DATA = json! as! [Any]
                 
-                print("LIST_DATA=\(LIST_DATA)")
+                //print("LIST_DATA=\(LIST_DATA)")
             }
         }
         
@@ -68,8 +68,6 @@ class MainViewController: UITableViewController {
         let cell:UITableViewCell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "CakeCell")
         
         let object:[String:String] = LIST_DATA[indexPath.row] as! [String:String]
-        
-        //(person as! [String:String])["name"]
         cell.textLabel!.text = object["title"]
         cell.detailTextLabel!.text = object["desc"]
         
