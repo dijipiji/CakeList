@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  CakeList
+
+  Created by Jamie Lemon on 21/04/2019.
+  Copyright © 2019 dijipiji. All rights reserved.
+*/
+
+"ERROR_TITLE" = "Error";
+"BAD_DATA_FETCH_MESSAGE" = "The data feed for the list cannot be found. Please check your internet connection";
+"OKAY" = "Okay";

@@ -23,6 +23,14 @@ class MainViewController: UITableViewController {
         
         if success {
             self.tableView.reloadData()
+        } else {
+            let uiAlertVC:UIAlertController = UIAlertController(title: NSLocalizedString("ERROR_TITLE", comment: ""),
+                                                                message: NSLocalizedString("BAD_DATA_FETCH_MESSAGE", comment: ""),
+                                                                preferredStyle: UIAlertController.Style.alert)
+            let action:UIAlertAction = UIAlertAction(title:NSLocalizedString("OKAY", comment: ""), style:UIAlertAction.Style.default, handler:{ (myAlertAction: UIAlertAction!) in })
+            
+            uiAlertVC.addAction(action)
+            self.present(uiAlertVC, animated: false, completion: nil)
         }
         
     }
@@ -34,9 +42,7 @@ class MainViewController: UITableViewController {
         
         let data:Data? = CakeData.getData()
         
-        if data == nil {
-            
-        } else {
+        if data != nil {
             let json:Any? = CakeData.parseData(data!)
             
             if json != nil {
@@ -48,6 +54,8 @@ class MainViewController: UITableViewController {
                 }
                 
             }
+            
+            return true
         }
         
         return false

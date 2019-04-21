@@ -16,6 +16,7 @@
 		A549CC3B226A0EE300D56282 /* CakeListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549CC3A226A0EE300D56282 /* CakeListTests.swift */; };
 		A549CC46226A0EE300D56282 /* CakeListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549CC45226A0EE300D56282 /* CakeListUITests.swift */; };
 		A549CCD3226A173600D56282 /* CakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549CCD2226A173600D56282 /* CakeData.swift */; };
+		A5EF482D226D0815000816F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5EF482C226D0815000816F4 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		A549CC47226A0EE300D56282 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A549CCD1226A15B200D56282 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		A549CCD2226A173600D56282 /* CakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakeData.swift; sourceTree = "<group>"; };
+		A5EF482C226D0815000816F4 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				A549CC22226A0EE100D56282 /* AppDelegate.swift */,
 				A549CC24226A0EE100D56282 /* MainViewController.swift */,
+				A5EF482C226D0815000816F4 /* Localizable.strings */,
 				A549CCD2226A173600D56282 /* CakeData.swift */,
 				A549CC26226A0EE100D56282 /* Main.storyboard */,
 				A549CC2C226A0EE300D56282 /* Assets.xcassets */,
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A549CC30226A0EE300D56282 /* LaunchScreen.storyboard in Resources */,
+				A5EF482D226D0815000816F4 /* Localizable.strings in Resources */,
 				A549CC2D226A0EE300D56282 /* Assets.xcassets in Resources */,
 				A549CC28226A0EE100D56282 /* Main.storyboard in Resources */,
 			);
