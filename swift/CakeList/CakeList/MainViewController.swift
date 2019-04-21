@@ -11,6 +11,7 @@ import UIKit
 class MainViewController: UITableViewController {
     
     var LIST_DATA:[Any] = []
+    var SOURCED_CELL_IMAGES:[UIImage?] = []
     
     /**
      *
@@ -42,14 +43,19 @@ class MainViewController: UITableViewController {
                 
                 LIST_DATA = json! as! [Any]
                 
-                //print("LIST_DATA=\(LIST_DATA)")
+                for _ in LIST_DATA {
+                    SOURCED_CELL_IMAGES.append(nil)
+                }
+                
             }
         }
         
         return false
     }
     
-    
+    /**
+     *
+     */
     override func numberOfSections(in tableView: UITableView) -> Int {
          return 1
     }
@@ -64,30 +70,66 @@ class MainViewController: UITableViewController {
     /**
      *
      */
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.imageView!.image = getDefaultCakeImage()
+    }
+    
+    /**
+     *
+     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "CakeCell")
         
         let object:[String:String] = LIST_DATA[indexPath.row] as! [String:String]
         cell.textLabel!.text = object["title"]
         cell.detailTextLabel!.text = object["desc"]
-        
-        var image:UIImage!
+        cell.imageView!.image = getDefaultCakeImage()
         
         let url:URL! = URL(string:object["image"]!)
+        let request:URLRequest = URLRequest(url: url!)
+        
+        if SOURCED_CELL_IMAGES[indexPath.row] == nil {
+            let task = URLSession.shared.dataTask(with: request,
+                                                  completionHandler: {data, response, error -> Void in
+                                                    
+                                                    if error == nil {
+                                                        
+                                                        var image:UIImage? = UIImage(data: data!)
+                                                        
+                                                        if image == nil {
+                                                            image = self.getDefaultCakeImage()
+                                                        }
+                                                        
+                                                        self.SOURCED_CELL_IMAGES[indexPath.row] = image
+                                                        
+                                                        // Update the cell on the main thread
+                                                        DispatchQueue.main.async {
+                                                            let cell:UITableViewCell? = tableView.cellForRow(at: indexPath)
+                                                            
+                                                            if cell != nil {
+                                                                cell!.imageView!.image = image
+                                                            }
+                                                        }
+                                                        
+                                                    } else {
+                                                        cell.imageView!.image = self.getDefaultCakeImage()
+                                                    }
+            })
+            task.resume()
+            
+        } else {
+            cell.imageView!.image = SOURCED_CELL_IMAGES[indexPath.row]!
+        }
 
-        if let data:Data = try? Data.init(contentsOf: url) {
-            image = UIImage(data: data)
-        }
-        
-        if image == nil {
-            image = UIImage(named:"icon-cake")!
-        }
-        
-        cell.imageView!.image = image
-        
         return cell
     }
-
-
+    
+    /**
+     *
+     */
+    func getDefaultCakeImage() -> UIImage {
+        return UIImage(named:"icon-cake")!
+    }
+    
 }
 
