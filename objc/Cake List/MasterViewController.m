@@ -16,11 +16,14 @@
 
 @implementation MasterViewController
 
+NSMutableArray *SOURCED_CELL_IMAGES;
+
 /**
  *
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     BOOL success = [self startDataFetch];
     
     if (success) {
@@ -42,6 +45,12 @@
         if ([result isKindOfClass:[NSError class]]) {
             [self displayDataFetchError];
         } else if ([result isKindOfClass:[NSArray class]]) {
+            SOURCED_CELL_IMAGES = [NSMutableArray arrayWithCapacity:[result count]];
+            
+            for (int i = 0; i < [result count]; i++) {
+                [SOURCED_CELL_IMAGES addObject:[NSNull null]];
+            }
+            
             self.listObjects = result;
             return YES;
         }
@@ -77,18 +86,42 @@
     NSDictionary *object = self.listObjects[indexPath.row];
     cell.titleLabel.text = object[@"title"];
     cell.descriptionLabel.text = object[@"desc"];
- 
-    NSURL *aURL = [NSURL URLWithString:object[@"image"]];
-    NSData *data = [NSData dataWithContentsOfURL:aURL];
-    UIImage *image = [UIImage imageWithData:data];
+    cell.cakeImageView.backgroundColor = UIColor.whiteColor;
+
+    // read: https://stackoverflow.com/questions/16663618/async-image-loading-from-url-inside-a-uitableview-cell-image-changes-to-wrong/16663759
     
-    if (image == nil) {
-        cell.cakeImageView.backgroundColor = UIColor.whiteColor;
-        image = [UIImage imageNamed:@"icon-cake"];
+    if (SOURCED_CELL_IMAGES[indexPath.row] == [NSNull null]) {
+        
+        NSURL *url = [NSURL URLWithString:object[@"image"]];
+        
+        NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url
+                                                             completionHandler:^(NSData * _Nullable data,
+                                                                                 NSURLResponse * _Nullable response,
+                                                                                 NSError * _Nullable error) {
+                                                                 if (data) {
+                                                                     UIImage *image = [UIImage imageWithData:data];
+                                                                     
+                                                                     if (image == nil) {
+                                                                         image = [UIImage imageNamed:@"icon-cake"];
+                                                                     }
+                                                                     
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         CakeCell *updateCell = (CakeCell*)[tableView cellForRowAtIndexPath:indexPath];
+                                                                         
+                                                                         if (updateCell) {
+                                                                             [updateCell.cakeImageView setImage:image];
+                                                                         }
+                                                                     });
+                                                                     
+                                                                     SOURCED_CELL_IMAGES[indexPath.row] = image;
+                                                                 }
+                                                             }];
+        [task resume];
+        
+    } else {
+        [cell.cakeImageView setImage:SOURCED_CELL_IMAGES[indexPath.row]];
     }
-    
-    [cell.cakeImageView setImage:image];
-    
+
     return cell;
 }
 
@@ -97,6 +130,16 @@
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+/**
+ *
+ */
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView.indexPathsForVisibleRows indexOfObject:indexPath] == NSNotFound) {
+        CakeCell *cakeCell = (CakeCell *)cell;
+        [cakeCell.cakeImageView setImage: [UIImage imageNamed:@"icon-cake"]];
+    }
 }
 
 /**
