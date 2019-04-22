@@ -10,9 +10,7 @@ import UIKit
 
 class MainViewController: UITableViewController {
     
-    var LIST_DATA:[Any] = []
-    var SOURCED_CELL_IMAGES:[UIImage?] = []
-    
+
     /**
      *
      */
@@ -47,10 +45,10 @@ class MainViewController: UITableViewController {
             
             if json != nil {
                 
-                LIST_DATA = json! as! [Any]
+                CakeData.LIST_DATA = json! as! [Any]
                 
-                for _ in LIST_DATA {
-                    SOURCED_CELL_IMAGES.append(nil)
+                for _ in CakeData.LIST_DATA {
+                    CakeData.SOURCED_CELL_IMAGES.append(nil)
                 }
                 
             }
@@ -72,7 +70,7 @@ class MainViewController: UITableViewController {
      *
      */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return LIST_DATA.count
+         return CakeData.LIST_DATA.count
     }
     
     /**
@@ -88,7 +86,7 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "CakeCell")
         
-        let object:[String:String] = LIST_DATA[indexPath.row] as! [String:String]
+        let object:[String:String] = CakeData.LIST_DATA[indexPath.row] as! [String:String]
         cell.textLabel!.text = object["title"]
         cell.detailTextLabel!.text = object["desc"]
         cell.imageView!.image = getDefaultCakeImage()
@@ -96,7 +94,7 @@ class MainViewController: UITableViewController {
         let url:URL! = URL(string:object["image"]!)
         let request:URLRequest = URLRequest(url: url!)
         
-        if SOURCED_CELL_IMAGES[indexPath.row] == nil {
+        if CakeData.SOURCED_CELL_IMAGES[indexPath.row] == nil {
             let task = URLSession.shared.dataTask(with: request,
                                                   completionHandler: {data, response, error -> Void in
                                                     
@@ -108,7 +106,7 @@ class MainViewController: UITableViewController {
                                                             image = self.getDefaultCakeImage()
                                                         }
                                                         
-                                                        self.SOURCED_CELL_IMAGES[indexPath.row] = image
+                                                        CakeData.SOURCED_CELL_IMAGES[indexPath.row] = image
                                                         
                                                         // Update the cell on the main thread
                                                         DispatchQueue.main.async {
@@ -126,7 +124,7 @@ class MainViewController: UITableViewController {
             task.resume()
             
         } else {
-            cell.imageView!.image = SOURCED_CELL_IMAGES[indexPath.row]!
+            cell.imageView!.image = CakeData.SOURCED_CELL_IMAGES[indexPath.row]!
         }
 
         return cell

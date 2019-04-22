@@ -10,6 +10,9 @@ import UIKit
 
 class CakeData: NSObject {
     
+    static var LIST_DATA:[Any] = []
+    static var SOURCED_CELL_IMAGES:[UIImage?] = []
+    
     /**
      *
      */
