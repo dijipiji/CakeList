@@ -8,9 +8,38 @@
 
 #import "CakeData.h"
 
+static NSMutableArray *_SOURCED_CELL_IMAGES;
+static NSArray *_LIST_OBJECTS;
+
 @implementation CakeData
 
+/**
+ *
+ */
++(NSArray*)listObjects {
+    return _LIST_OBJECTS;
+}
 
+/**
+ *
+ */
++(void)setListObjects:(NSArray*)listObjects {
+    _LIST_OBJECTS = listObjects;
+}
+
+/**
+ *
+ */
++(NSMutableArray*)sourcedCellImages {
+    return _SOURCED_CELL_IMAGES;
+}
+
+/**
+ *
+ */
++(void)setSourcedCellImages:(NSMutableArray*)images {
+    _SOURCED_CELL_IMAGES = images;
+}
 
 /**
  *

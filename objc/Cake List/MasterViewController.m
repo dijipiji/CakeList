@@ -11,12 +11,12 @@
 #import "CakeData.h"
 
 @interface MasterViewController ()
-@property (strong, nonatomic) NSArray *listObjects;
+
 @end
 
 @implementation MasterViewController
 
-NSMutableArray *SOURCED_CELL_IMAGES;
+
 
 /**
  *
@@ -45,13 +45,13 @@ NSMutableArray *SOURCED_CELL_IMAGES;
         if ([result isKindOfClass:[NSError class]]) {
             [self displayDataFetchError];
         } else if ([result isKindOfClass:[NSArray class]]) {
-            SOURCED_CELL_IMAGES = [NSMutableArray arrayWithCapacity:[result count]];
+            CakeData.sourcedCellImages = [NSMutableArray arrayWithCapacity:[result count]];
             
             for (int i = 0; i < [result count]; i++) {
-                [SOURCED_CELL_IMAGES addObject:[NSNull null]];
+                [CakeData.sourcedCellImages addObject:[NSNull null]];
             }
             
-            self.listObjects = result;
+            CakeData.listObjects = result;
             return YES;
         }
     }
@@ -72,7 +72,7 @@ NSMutableArray *SOURCED_CELL_IMAGES;
  *
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.listObjects.count;
+    return CakeData.listObjects.count;
 }
 
 /**
@@ -83,14 +83,14 @@ NSMutableArray *SOURCED_CELL_IMAGES;
     
     NSAssert(cell != nil, @"Cell is nil");
     
-    NSDictionary *object = self.listObjects[indexPath.row];
+    NSDictionary *object = CakeData.listObjects[indexPath.row];
     cell.titleLabel.text = object[@"title"];
     cell.descriptionLabel.text = object[@"desc"];
     cell.cakeImageView.backgroundColor = UIColor.whiteColor;
 
     // read: https://stackoverflow.com/questions/16663618/async-image-loading-from-url-inside-a-uitableview-cell-image-changes-to-wrong/16663759
     
-    if (SOURCED_CELL_IMAGES[indexPath.row] == [NSNull null]) {
+    if (CakeData.sourcedCellImages[indexPath.row] == [NSNull null]) {
         
         NSURL *url = [NSURL URLWithString:object[@"image"]];
         
@@ -113,13 +113,13 @@ NSMutableArray *SOURCED_CELL_IMAGES;
                                                                          }
                                                                      });
                                                                      
-                                                                     SOURCED_CELL_IMAGES[indexPath.row] = image;
+                                                                     CakeData.sourcedCellImages[indexPath.row] = image;
                                                                  }
                                                              }];
         [task resume];
         
     } else {
-        [cell.cakeImageView setImage:SOURCED_CELL_IMAGES[indexPath.row]];
+        [cell.cakeImageView setImage:CakeData.sourcedCellImages[indexPath.row]];
     }
 
     return cell;

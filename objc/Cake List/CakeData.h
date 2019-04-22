@@ -10,8 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CakeData : NSObject
+@interface CakeData : NSObject 
 
+//@property (strong, nonatomic) NSArray *listObjects;
+
++(void)setListObjects:(NSArray*)listObjects;
++(NSArray*)listObjects;
++(NSMutableArray*)sourcedCellImages;
++(void)setSourcedCellImages:(NSMutableArray*)images;
 +(NSData *)getData;
 +(id)parseData:(NSData *)data;
 
